@@ -48,13 +48,41 @@ const RegisterModal = () => {
             })
     }
 
+    // * BODY CONTENT
     const bodyContent = (
         <div className='flex flex-col gap-4'>
             <Heading
                 title='Welcome to Airbnb'
                 subtitle='Create an account!'
             />
-            <Input />
+            {/* EMAIL FIELD */}
+            <Input 
+                id='email'
+                label='Email'
+                disabled={isLoading}
+                register={register}
+                errors={errors}
+                required
+            />
+            {/* NAME FIELD */}
+            <Input 
+                id='name'
+                label='Name'
+                disabled={isLoading}
+                register={register}
+                errors={errors}
+                required
+            />
+            {/* PASSWORD FIELD */}
+            <Input 
+                id='password'
+                type='password'
+                label='Password'
+                disabled={isLoading}
+                register={register}
+                errors={errors}
+                required
+            />
         </div>
     )
 
@@ -72,8 +100,3 @@ const RegisterModal = () => {
 }
 
 export default RegisterModal
-
-
-// **************** //
-// * > 1:12:58 < * //
-// **************** //
