@@ -131,5 +131,3 @@ const RegisterModal = () => {
 }
 
 export default RegisterModal
-
-// *** 1:35:21 *** //
