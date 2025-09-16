@@ -1,5 +1,5 @@
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { AuthOptions } from "next-auth";
+import NextAuth, { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
@@ -40,9 +40,27 @@ export const authOptions: AuthOptions = {
                     throw new Error('Invalid Credentials')
                 }
 
-                const isCorrectPassword = await bcrypt
-                // * 2:01:56
+                const isCorrectPassword = await bcrypt.compare(
+                    credentials.password,
+                    user.hashedPassword
+                )
+                
+                if (!isCorrectPassword) {
+                    throw new Error('Invalid Credentials')
+                }
+
+                return user;
             }
         })
-    ]
-}
+    ],
+    pages: {
+        signIn: '/',
+    },
+    debug: process.env.NODE_ENV === 'development',
+    session: {
+        strategy: 'jwt'
+    },
+    secret: process.env.NEXTAUTH_SECRET
+};
+
+export default NextAuth(authOptions);
